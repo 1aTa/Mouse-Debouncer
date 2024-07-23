@@ -9,6 +9,8 @@ A small performant Windows "tray application" which suppresses false double clic
 4. *Test and customize the thresholds for the best possible experience.*
 5. Enjoy!
 
+NOTE: When clicking and dragging, it's possible that the initial MouseDown will trigger an erroneous second click, thus cancelling the subsequent drag. Unfortunately there's no software solution for this. If you notice your drag events are stopping suddenly, it's definitely time for new switches.
+
 ## Command-Line Options
 
 `threshold` : min delay between clicks in milliseconds to trigger a double click (**def**: 50  **min**: 1  **max**: 500)
