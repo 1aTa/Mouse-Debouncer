@@ -76,7 +76,7 @@ static NOTIFYICONDATA notify_icon_data;
 static MOUSEBUTTONDATA mouse_button_data[MOUSE_BUTTON_COUNT];
 static int32_t double_click_threshold_ms_max = 500;
 static int32_t double_click_threshold_ms_min = 1;
-static uint32_t double_click_threshold_ms = 60;
+static uint32_t double_click_threshold_ms = 50;
 static uint64_t double_click_threshold;
 static uint64_t counts_per_second;
 static bool use_qpc;
@@ -234,6 +234,7 @@ static LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lPara
 						// Return nonzero value to prevent the system from passing the message to the rest of the hook chain.
 						return 1;
 					}
+					mouse_button_data[pressedButton].previousTime = currentTime;
 					break;
 				}
 				case WM_LBUTTONUP: case WM_RBUTTONUP: case WM_MBUTTONUP: case WM_XBUTTONUP:
@@ -245,7 +246,6 @@ static LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lPara
 						return 1;
 					}
 
-					mouse_button_data[pressedButton].previousTime = currentTime;
 					break;
 				}
 				default: ;
