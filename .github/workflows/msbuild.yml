@@ -56,5 +56,5 @@ jobs:
 
     - uses: actions/upload-artifact@master
       with:
-        name: "Mouse Debouncer x86/x64" 
+        name: "Mouse Debouncer" 
         path: MouseDebouncer\Artifacts\*
