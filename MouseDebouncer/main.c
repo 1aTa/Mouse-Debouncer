@@ -246,6 +246,7 @@ static LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lPara
 						return 1;
 					}
 
+					mouse_button_data[pressedButton].previousTime = currentTime;
 					break;
 				}
 				default: ;
