@@ -3,14 +3,15 @@ A small performant Windows "tray application" which suppresses false double clic
 `false double click = elapsed time between last mouseup and current mousedown event <= threshold`
 
 ## Usage
-1. Download the latest [release](https://github.com/marvinlehmann/Mouse-Debouncer/releases).
+1. Download the latest [release](https://github.com/1aTa/Mouse-Debouncer/releases).
 2. Preferably create a shortcut, batch script, task, etc to set command-line options and/or to put it into the autostart.
-3. *Test and customize the thresholds for the best possible experience.*
-4. Enjoy!
+3. Run as admin if you would like Mouse Debouncer to work in elevated programs.
+4. *Test and customize the thresholds for the best possible experience.*
+5. Enjoy!
 
 ## Command-Line Options
 
-`threshold` : min delay between clicks in milliseconds to trigger a double click (**def**: 60  **min**: 1  **max**: 500)
+`threshold` : min delay between clicks in milliseconds to trigger a double click (**def**: 50  **min**: 1  **max**: 500)
 
 | Option | Parameter | Description |
 | --- | :---: | --- |
