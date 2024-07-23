@@ -14,6 +14,8 @@
 #include <Strsafe.h>
 #include "optparse.h"
 #include "resource.h"
+#include <winuser.h>
+#include <VersionHelpers.h>
 
 #if defined (DEBUG) | defined (_DEBUG)
 #define DEBUG_PRINTF(fmt, ...) \
@@ -78,9 +80,13 @@ static uint32_t double_click_threshold_ms = 60;
 static uint64_t double_click_threshold;
 static uint64_t counts_per_second;
 static bool use_qpc;
+static bool has_icon_been_shown = false;
+
 
 int CALLBACK wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ PWSTR lpCmdLine, _In_ int nCmdShow)
 {
+	// Set DPI aware to system aware.
+	if (IsWindowsVistaOrGreater()){SetProcessDPIAware();}
 	// Limit the application to one instance.
 	const HANDLE mutex = CreateMutex(NULL, TRUE, L"{05B95384-625D-491A-A326-94758957C021}");
 	if (!mutex)
@@ -287,7 +293,7 @@ static bool AddNotifyIcon(const HINSTANCE hInstance, const HWND hWnd, const bool
 	}
 	
 	// Try to add the icon to the notification area...
-	if (!Shell_NotifyIcon(NIM_ADD, &notify_icon_data))
+	if (!Shell_NotifyIcon(NIM_ADD, &notify_icon_data) && has_icon_been_shown == false)
 	{
 		ShowErrorMessageBox(L"The notify icon couldn't be added.\nError code: %lu", GetLastError());
 		return false;
@@ -299,6 +305,9 @@ static bool AddNotifyIcon(const HINSTANCE hInstance, const HWND hWnd, const bool
 		ShowErrorMessageBox(L"The requested NOTIFYICON_VERSION_4 isn't supported.");
 		return false;
 	}
+
+	// Save that the notify icon has been already added.
+	has_icon_been_shown = true;
 
 	return true;
 }
